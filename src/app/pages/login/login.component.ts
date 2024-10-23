@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +11,30 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  signupForm: FormGroup;
+
   loading = false;
   error: string | null = null;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    this.signupForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    })
   }
 
-  onSubmit(): void {
+  onLogin(): void {
     if (this.loginForm.invalid) {
       return;
     }
@@ -32,18 +42,33 @@ export class LoginComponent {
     this.loading = true;
     this.error = null;
 
-    this.http.post<{ token: string }>('http://localhost:3000/api/v1/students/login', this.loginForm.value)
-      .subscribe(
-        response => {
+    const {email, password} = this.loginForm.value
+    this.userService.login(email, password).subscribe(
+      
+      response => {
   
-          localStorage.setItem('token', response.token);
+        localStorage.setItem('token', response.token);
 
-          this.router.navigate(['/home']);
-        },
-        err => {
-          this.loading = false;
-          this.error = err.error || 'Login failed';
-        }
-      );
+        this.router.navigate(['/home']);
+      },
+      err => {
+        this.loading = false;
+        this.error = err.error || 'Login failed';
+      }
+    )
+  }
+
+  onSignup() {
+    if(this.signupForm.invalid) {
+      return;
+    }
+
+    const {name, email, password} = this.signupForm.value;
+
+    this.userService.signUp(name, email, password).subscribe(
+      response => {
+        console.log(response);
+      }
+    )
   }
 }

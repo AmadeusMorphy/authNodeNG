@@ -9,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
 import {HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
-
+import { ButtonModule } from 'primeng/button'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +22,8 @@ import { SignupComponent } from './pages/signup/signup.component';
     AppRoutingModule,
     RouterOutlet,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

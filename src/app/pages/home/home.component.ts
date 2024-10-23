@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +10,16 @@ import { UserService } from '../services/user.service';
 })
 export class HomeComponent {
 
+  key: string = 'nizaR*123'
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.userService.getData().subscribe(
+
+    this.checkUserLoggedIn();
+    this.userService.getData(this.key).subscribe(
       (res: any) => {
         console.log(res);
         
@@ -22,5 +28,24 @@ export class HomeComponent {
         
       }
     )
+  }
+
+  checkUserLoggedIn() {
+    this.userService.checkUserLoggedIn().subscribe(
+      response => {
+        console.log('Token is valid:', response);
+      },
+      error => {
+        console.error('Token is invalid or expired:', error);
+        localStorage.removeItem('token');
+        this.router.navigateByUrl('/login');
+        
+      }
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.checkUserLoggedIn();
   }
 }
