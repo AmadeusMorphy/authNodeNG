@@ -16,7 +16,7 @@ export class UserService {
 
 
   ngOnInit(): void {
-    
+
   }
 
   getData(key: string) {
@@ -28,11 +28,11 @@ export class UserService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<{ token: string }>(`${environment.apiUrl}/users/login`, {email, password})
+    return this.http.post<{ token: string }>(`${environment.apiUrl}/users/login`, { email, password })
   }
 
-  signUp(name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/users`, {name, email, password})
+  signUp(name: string, email: string, password: string, dateCreated: Date): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/users`, { name, email, password, dateCreated })
   }
 
   checkUserLoggedIn(): Observable<any> {

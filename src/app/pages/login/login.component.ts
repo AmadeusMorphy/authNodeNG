@@ -30,7 +30,8 @@ export class LoginComponent {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      dateCreated: new Date()
     })
   }
 
@@ -42,11 +43,11 @@ export class LoginComponent {
     this.loading = true;
     this.error = null;
 
-    const {email, password} = this.loginForm.value
+    const { email, password } = this.loginForm.value
     this.userService.login(email, password).subscribe(
-      
+
       response => {
-  
+
         localStorage.setItem('token', response.token);
 
         this.router.navigate(['/home']);
@@ -59,13 +60,13 @@ export class LoginComponent {
   }
 
   onSignup() {
-    if(this.signupForm.invalid) {
+    if (this.signupForm.invalid) {
       return;
     }
 
-    const {name, email, password} = this.signupForm.value;
+    const { name, email, password, dateCreated } = this.signupForm.value;
 
-    this.userService.signUp(name, email, password).subscribe(
+    this.userService.signUp(name, email, password, dateCreated).subscribe(
       response => {
         console.log(response);
       }
