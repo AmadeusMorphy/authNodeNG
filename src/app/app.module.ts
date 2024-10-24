@@ -7,9 +7,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RouterOutlet } from '@angular/router';
 import {HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './pages/signup/signup.component';
-import { ButtonModule } from 'primeng/button'
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +26,10 @@ import { ButtonModule } from 'primeng/button'
     RouterOutlet,
     HttpClientModule,
     ReactiveFormsModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    FormsModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

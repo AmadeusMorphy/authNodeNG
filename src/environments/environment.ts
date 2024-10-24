@@ -1,4 +1,4 @@
 export const environment = {
 
-    apiUrl: 'http://localhost:3000/api/v1',
+    apiUrl: 'https://api.mrnzd.com/api/v1',
 }

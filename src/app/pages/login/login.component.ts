@@ -31,6 +31,7 @@ export class LoginComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      age: ['', Validators.required],
       dateCreated: new Date()
     })
   }
@@ -64,12 +65,15 @@ export class LoginComponent {
       return;
     }
 
-    const { name, email, password, dateCreated } = this.signupForm.value;
+    const { name, email, password, age, dateCreated } = this.signupForm.value;
 
-    this.userService.signUp(name, email, password, dateCreated).subscribe(
+    this.userService.signUp(name, email, password, age, dateCreated).subscribe(
       response => {
         console.log(response);
+        window.location.reload();
       }
     )
   }
+
+  
 }

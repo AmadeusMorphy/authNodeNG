@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  apiUrl = 'http://localhost:3000/api/v1';
+  apiUrl = 'https://api.mrnzd.com/api/v1';
 
   constructor(
     private http: HttpClient
@@ -31,8 +31,8 @@ export class UserService {
     return this.http.post<{ token: string }>(`${environment.apiUrl}/users/login`, { email, password })
   }
 
-  signUp(name: string, email: string, password: string, dateCreated: Date): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/users`, { name, email, password, dateCreated })
+  signUp(name: string, email: string, password: string, age: number, dateCreated: Date): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/users`, { name, email, password, age, dateCreated })
   }
 
   checkUserLoggedIn(): Observable<any> {

@@ -18,6 +18,7 @@
                <form class="flip-card__form" [formGroup]="signupForm" (ngSubmit)="onSignup()">
                   <input class="flip-card__input" formControlName="name" placeholder="Name" type="name">
                   <input class="flip-card__input" formControlName="email" name="email" placeholder="Email" type="email">
+                  <input class="flip-card__input" formControlName="age" name="age" placeholder="Age" type="number">
                   <input class="flip-card__input" formControlName="password" name="password" placeholder="Password" type="password">
                   <button class="flip-card__btn">Confirm!</button>
                </form>

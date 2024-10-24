@@ -2,3 +2,37 @@
     <button pButton (click)="logout()">Logout</button>
 </div>
 
+
+
+<div class="grid justify-content-center align-items-center">
+
+    <form [formGroup]="keyForm" action="" (ngSubmit)="checkKey()"
+        class="flex justify-content-center align-items-center">
+        <div style="display: grid; justify-content: center; align-items: center; margin-top: 30px; gap: 10px;">
+            <label class="flex justify-content-center">Display users data</label>
+            <input pInputText placeholder="ENTER THE KEY" formControlName="key">
+            <p-button (onClick)="checkKey()" class="flex justify-content-center">Check Key</p-button>
+        </div>
+    </form>
+</div>
+
+
+
+<p-table [value]="usersData" *ngIf="displayData" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '30px' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td [ngClass]="user.name == null ? 'text-red-600' : ''">{{ user.name || 'UNKNOWN'}}</td>
+            <td>{{ user.email }}</td>
+            <td [ngClass]="user.age == null ? 'text-red-600' : ''">{{ user.age || 'UNKNOWN'}}</td>
+        </tr>
+    </ng-template>
+</p-table>
